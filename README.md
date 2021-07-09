@@ -7,7 +7,7 @@ Notes: The call graph is calculated using the `SPARK` algorithm. The call graph 
 ## Usage
 
 1. Compile project (`mvn package`)
-1. Collect reachability information. `java -cp target/static-reachability-1.0-SNAPSHOT.jar edu.neu.ccs.se.reachability.entry.ReachabilityFinder testClassName testMethodName classPath > reachable-methods.txt`
+1. Collect reachability information. `java -cp target/static-reachability-1.0-SNAPSHOT.jar edu.neu.ccs.se.reachability.entry.ReachabilityFinder testClassName testMethodName classPath > reachable-methods.txt`. The output format is: `{className}\t{methodName}\t{lineNumber}`
 1. Analyze JaCoCo file along with that reachabiltiy info. `java -cp target/static-reachability-1.0-SNAPSHOT.jar neu.ccs.se.reachability.entry.JaCoCoReachabilityReporter classpath jacocoExecFile reachabilityFile` 
 
 Be sure that the classpath specified for both utilities is the same *and* that it matches the classpath from the experiment that you ran to collect the JaCoCo result file.

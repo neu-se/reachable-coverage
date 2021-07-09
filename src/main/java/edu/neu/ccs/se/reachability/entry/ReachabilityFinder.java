@@ -37,9 +37,8 @@ public class ReachabilityFinder {
     }
 
     public static ArrayList<String> findStaticallyReachableLines(String entryClass, String entryMethod, String classPath){
-        String javapath = System.getProperty("java.class.path");
         String jredir = System.getProperty("java.home")+"/lib/rt.jar";
-        String path = javapath+ File.pathSeparator+jredir+File.pathSeparator+classPath;
+        String path = File.pathSeparator+jredir+File.pathSeparator+classPath;
         Options.v().set_soot_classpath(path);
 
         final List<String> excludePackagesList = Arrays.asList("java.","sun.", "com.sun.", "jdk.", "javax.");
@@ -93,7 +92,6 @@ public class ReachabilityFinder {
                 }
 
                 for(SootMethod s: reachableNonJDKMethods){
-                    //System.out.println(s.getDeclaringClass().getName());
                     if(s.getJavaSourceStartLineNumber() >= 0){
                         for(Unit u : s.getActiveBody().getUnits()){
                             int lineNumber = u.getJavaSourceStartLineNumber();

@@ -54,15 +54,28 @@
         </dependency>
         <dependency>
             <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
+            <artifactId>org.jacoco.core</artifactId>
             <version>0.8.8-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/jacoco-all-branches-jars/org.jacoco.core-0.8.8.202107070700.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.jacoco</groupId>
+            <artifactId>org.jacoco.report</artifactId>
+            <version>0.8.8-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/jacoco-all-branches-jars/org.jacoco.report-0.8.8.202107070700.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.ow2.asm</groupId>
             <artifactId>asm</artifactId>
             <version>9.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.13.1</version>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>
