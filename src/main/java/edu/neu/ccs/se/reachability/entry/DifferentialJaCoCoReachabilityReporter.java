@@ -48,7 +48,7 @@ public class DifferentialJaCoCoReachabilityReporter {
             @Override
             public void visitCoverage(IClassCoverage iClassCoverage) {
                 if (coverableLines.containsKey(iClassCoverage.getName()) &&
-                iClassCoverage.getName().startsWith("org/apache/maven/model")) {
+                iClassCoverage.getName().startsWith("org/apache/")) {
                     for (IMethodCoverage iMethodCoverage : iClassCoverage.getMethods()) {
                         boolean addedAllLinesAsCoverable = false;
                         if (iMethodCoverage.containsCode()) {

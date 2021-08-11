@@ -63,16 +63,13 @@ public class JaCoCoReachabilityReporter {
 
             @Override
             public void visitCoverage(IClassCoverage iClassCoverage) {
-                if (coverableLines.containsKey(iClassCoverage.getName()) &&
-                iClassCoverage.getName().startsWith("org/apache/maven/model")) {
+                if ( true
+                        //coverableLines.containsKey(iClassCoverage.getName())
+                        //&& iClassCoverage.getName().startsWith("org/apache")
+                ) {
                     for (IMethodCoverage iMethodCoverage : iClassCoverage.getMethods()) {
                         boolean addedAllLinesAsCoverable = false;
                         if (iMethodCoverage.containsCode()) {
-                            if(iMethodCoverage.getName().equals("parseBuild")) {
-                                ICounter branchCounter = iMethodCoverage.getBranchCounter();
-                                System.out.println(iMethodCoverage.getName()+iMethodCoverage.getDesc()+":"+branchCounter.getCoveredCount());
-                            }
-
                                 for (int i = iMethodCoverage.getFirstLine(); i <= iMethodCoverage.getLastLine(); i++) {
                                 int lineStatus = iMethodCoverage.getLine(i).getStatus();
                                 //if(iMethodCoverage.getName().equals("parseBuild")){
@@ -108,7 +105,8 @@ public class JaCoCoReachabilityReporter {
         });
         for (String path : cp.split(":")) {
             try {
-                analyzer.analyzeAll(new File(path));
+                if(new File(path).exists())
+                    analyzer.analyzeAll(new File(path));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -121,7 +119,7 @@ public class JaCoCoReachabilityReporter {
         for (String path : cp.split(":")) {
             try {
                 analyzer.analyzeAll(new File(path));
-            } catch (IOException ex) {
+            } catch (Throwable ex) {
                 ex.printStackTrace();
             }
         }
@@ -131,7 +129,7 @@ public class JaCoCoReachabilityReporter {
 
     public static void createHTMLReport(ExecFileLoader execFileLoader, IBundleCoverage bundleCoverage, String reportDir) throws IOException {
 
-        IBundleCoverage filtered = new BundleCoverageImpl(bundleCoverage.getName(), bundleCoverage.getPackages().stream().filter(iPackageCoverage -> iPackageCoverage.getName().startsWith("org/apache/maven/model")).collect(Collectors.toList()));
+        //IBundleCoverage filtered = new BundleCoverageImpl(bundleCoverage.getName(), bundleCoverage.getPackages().stream().filter(iPackageCoverage -> iPackageCoverage.getName().startsWith("org/apache/maven/model")).collect(Collectors.toList()));
         //taken from https://www.eclemma.org/jacoco/trunk/doc/examples/java/ReportGenerator.java under EPL
         final HTMLFormatter htmlFormatter = new HTMLFormatter();
         final IReportVisitor visitor = htmlFormatter
@@ -145,7 +143,7 @@ public class JaCoCoReachabilityReporter {
 
         // Populate the report structure with the bundle coverage information.
         // Call visitGroup if you need groups in your report.
-        visitor.visitBundle(filtered,
+        visitor.visitBundle(bundleCoverage,
                 new DirectorySourceFileLocator(new File("/Users/jon/Documents/GMU/Projects/jqf/examples/target/sources"), "utf-8", 4));
 
         // Signal end of structure information to allow report to write all
